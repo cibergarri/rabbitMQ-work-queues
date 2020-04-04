@@ -1,0 +1,23 @@
+{
+  "name": "rabbitmq-work-queues",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "worker": "node ./worker",
+    "new-task": "node ./new_task"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cibergarri/rabbitMQ-work-queues.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cibergarri/rabbitMQ-work-queues/issues"
+  },
+  "homepage": "https://github.com/cibergarri/rabbitMQ-work-queues#readme",
+  "dependencies": {
+    "amqplib": "0.5.5"
+  }
+}
