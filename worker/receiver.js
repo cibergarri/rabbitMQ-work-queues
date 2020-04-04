@@ -1,13 +1,26 @@
 const amqp = require('amqplib');
-const { QUEUE_NAME, QUEUE_URL, NO_ACK } = require('../constants');
+const {
+  QUEUE_NAME,
+  QUEUE_URL,
+  QUEUE_PREFECH,
+  NO_ACK,
+} = require('../constants');
 const { handler }               = require('./task');
 
 const connect = () => amqp.connect(QUEUE_URL).then(conn => conn.createChannel());
 
 const test = async (channel) => {
-  const options = { durable: true };
+  const options = {
+    // persistent queues on rabbitMQ restart. Make sure it has not been previously created without this parameter
+    durable: true,
+  };
   const result = await channel.assertQueue(QUEUE_NAME, options);
+
+  // Sets the number of task a worker can handle at the same time (To not overload one worker from others)
+  channel.prefetch(QUEUE_PREFECH);
+
   console.log('Receiver connection to channel result', result);
+  console.log(' [*] Waiting for messages in queue "%s". To exit press CTRL+C', QUEUE_NAME);
   return channel;
 };
 

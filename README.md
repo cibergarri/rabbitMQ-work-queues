@@ -13,3 +13,5 @@ send tasks in another bash emulating the time taken by the dots
 ```
   npm run new-task task_name..............
 ```
+
+Note you cam have more than one worker running, the tasks will be picked by one or another and if one of the workers stops, the task will be moved to the iother.

@@ -7,7 +7,11 @@ const connect = () =>
   amqp.connect(QUEUE_URL).then((conn) => conn.createChannel());
 
 const test = async () => {
-  const result = await channel.assertQueue(QUEUE_NAME);
+  const options = {
+    // persistent queues on rabbitMQ restart. Make sure it has not been previously created without this parameter
+    durable: true,
+  };
+  const result = await channel.assertQueue(QUEUE_NAME, options);
   console.log('Sender connection to channel result', result);
 };
 
@@ -17,9 +21,9 @@ const initalize = async () => {
 };
 
 const send = async (msg) => {
-  const options = { pesrsistent: true };
+  const options = { persistent: true };
   const sent = await channel.sendToQueue(QUEUE_NAME, Buffer.from(msg), options);
-  console.log('sent:', sent);
+  console.log(" [x] Sent '%s'", msg);
   return sent;
 };
 
