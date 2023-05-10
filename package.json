@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/cibergarri/rabbitMQ-work-queues#readme",
   "dependencies": {
-    "amqplib": "0.5.5"
+    "amqplib": "0.10.3"
   }
 }
